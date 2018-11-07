@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"net"
 	"os"
@@ -59,6 +58,7 @@ func fetchIP() string {
 
 func fetchConfiguration() {
 	readConfigFromFile(configFile)
+
 	readConfigFromFile(tokenFile)
 	pdfDocDimension = getPdfDocDimensionFromString()
 	pdfMargins = getPdfMarginsFromString()
@@ -85,12 +85,11 @@ func readConfigFromFile(filename string) {
 	}
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-
 		a := strings.Split(string(scanner.Text()), "=")
 		_, ok := configuration[a[0]]
 		if a[0] != "" && ok {
 			configuration[strings.Trim(a[0], " ")] = strings.Trim(a[1], " ")
+			log.Debugf("Replacing configuration with: %v", scanner.Text())
 		}
 
 	}
@@ -160,6 +159,8 @@ func (r *Resultset) execCommand() {
 	r.Stderr = string(stderr.Bytes())
 	r.CMDStoptime = time.Now()
 	r.DurationSecounds = int(r.CMDStoptime.Unix() - r.CmdStarttime.Unix())
+	log.Debugf("Command: %v, args: %v ret: %v\n", r.OSCommand, r.CommandArgs, r.SuccessfullExecution)
+	log.Debugf("Stdout: %v Stderr: %v", r.Stdout, r.Stderr)
 	if err != nil {
 		//todo: log.Fatalf("cmd.Run() failed with %s\n", err)
 		log.Errorf("Command failed %v err: \n", err)

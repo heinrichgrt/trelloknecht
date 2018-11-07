@@ -155,9 +155,8 @@ func createIPCardOnBoard() {
 	} else {
 		createOwnCard(client)
 	}
-	log.Infof("ListID: %v", listIDByName["IPs"])
-	log.Info("jump")
-
+	log.Debugf("ListID: %v", listIDByName["IPs"])
+	log.Infof("Trello printer: %v stored info on config board", configuration["knechtID"])
 }
 
 func getLabels() []*trello.Card {
