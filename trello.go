@@ -159,6 +159,32 @@ func createIPCardOnBoard() {
 	log.Infof("Trello printer: %v stored info on config board", configuration["knechtID"])
 }
 
+func cardAddAndRemove(){
+	
+
+
+}
+func createTestCard(client *trello.Client) {
+	list, err := client.GetList(listIDByName["IPs"], trello.Defaults())
+	if err != nil {
+		log.Fatal("cannot get the ip list from the board\n")
+	}
+
+	dueDate := time.Now().AddDate(0, 0, 1)
+
+	card := trello.Card{
+		Name:     "TestCard",
+		Desc:     "TestDescription"
+		Due:      &dueDate,
+		IDLabels: []string{"label1", "label2"},
+	}
+
+	err = list.AddCard(&card, trello.Arguments{"pos": "bottom"})
+	if err != nil {
+		log.Fatalf("cannot add card %v to the board with %v", card, err)
+	}
+
+}
 func getLabels() []*trello.Card {
 	cardList := make([]*trello.Card, 0)
 	client := trello.NewClient(configuration["trelloAppKey"], configuration["trelloToken"])

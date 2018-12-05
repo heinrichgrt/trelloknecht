@@ -3,7 +3,8 @@ package main
 import (
 	"time"
 
-	"github.com/adlio/trello"
+	// "github.com/adlio/trello"
+	"github.com/heinrichgrt/trello"
 )
 
 var (
