@@ -159,9 +159,7 @@ func createIPCardOnBoard() {
 	log.Infof("Trello printer: %v stored info on config board", configuration["knechtID"])
 }
 
-func cardAddAndRemove(){
-	
-
+func cardAddAndRemove() {
 
 }
 func createTestCard(client *trello.Client) {
@@ -174,7 +172,7 @@ func createTestCard(client *trello.Client) {
 
 	card := trello.Card{
 		Name:     "TestCard",
-		Desc:     "TestDescription"
+		Desc:     "TestDescription",
 		Due:      &dueDate,
 		IDLabels: []string{"label1", "label2"},
 	}

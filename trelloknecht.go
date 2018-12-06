@@ -4,7 +4,7 @@ import (
 	"time"
 
 	// "github.com/adlio/trello"
-	"github.com/heinrichgrt/trello"
+	"github.com/adlio/trello"
 )
 
 var (
@@ -41,6 +41,7 @@ var (
 		"boardsToWatch":         "DevOps 2020 - Board",
 		"configCardName":        "PrintBert02 Card",
 		"usePrinterStatusBoard": "true",
+		"printFrame": "false"
 		"ConfigListOnBoard":     "IDs",
 		"printerMedia":          "Custom.62x100mm",
 		"printerOrientation":    "landscape",

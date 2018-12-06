@@ -2,6 +2,7 @@ package main
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/adlio/trello"
 	"github.com/boombuler/barcode/qr"
@@ -90,7 +91,9 @@ func writeLabel(pdf *gofpdf.Fpdf, card *trello.Card) string {
 	}
 	headTopMargin, _ := strconv.ParseFloat(configuration["headTopMargin"], 64)
 	pdf.SetTopMargin(headTopMargin)
-	pdf.Rect(blackRectPos[0], blackRectPos[1], blackRectPos[2], blackRectPos[3], "D")
+	if !strings.EqualFold(configuration["printFrame"], "true") {
+		pdf.Rect(blackRectPos[0], blackRectPos[1], blackRectPos[2], blackRectPos[3], "D")
+	}
 	headerString := card.Name
 	htmlString := "<center><bold>" + shortenStringIfToLong(headerString) + "</bold></center>"
 	html := pdf.HTMLBasicNew()
