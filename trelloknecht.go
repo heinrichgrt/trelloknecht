@@ -41,7 +41,7 @@ var (
 		"boardsToWatch":         "DevOps 2020 - Board",
 		"configCardName":        "PrintBert02 Card",
 		"usePrinterStatusBoard": "true",
-		"printFrame": "false"
+		"printFrame":            "false",
 		"ConfigListOnBoard":     "IDs",
 		"printerMedia":          "Custom.62x100mm",
 		"printerOrientation":    "landscape",
