@@ -143,7 +143,7 @@ func configCardDescription() string {
 	text = text + "IP: " + configuration["ip"] + "\n"
 	text = text + "Watched Boards: " + configuration["boardsToWatch"] + "\n"
 	text = text + "Label to Print: " + configuration["toPrintedLabelName"] + "\n"
-	text = text + "LastSeen:" + time.Now().Format(time.RFC1123) + "\n"
+	text = text + "Last Seen: " + time.Now().Format(time.RFC1123) + "\n "
 	return text
 }
 func (r *Resultset) execCommand() {
