@@ -67,9 +67,10 @@ func pdfBaseSetup() *gofpdf.Fpdf {
 	pdf.AddPage()
 	return pdf
 }
+
 func registerQR(pdf *gofpdf.Fpdf, card *trello.Card) {
 
-	key := barcode.RegisterQR(pdf, card.Url, qr.H, qr.Unicode)
+	key := barcode.RegisterQR(pdf, card.URL, qr.H, qr.Unicode)
 	qrSize, _ := strconv.ParseFloat(configuration["qRCodeSize"], 64)
 	barcode.BarcodeUnscalable(pdf, key, qRCodePos[0], qRCodePos[1], &qrSize, &qrSize, false)
 

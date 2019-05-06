@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/heinrichgrt/trello"
+	"github.com/adlio/trello"
 	log "github.com/sirupsen/logrus"
 )
 
