@@ -97,7 +97,7 @@ func boarListIDsToNames(board *trello.Board) {
 
 }
 func getOwnCardFromPrinterBoard(c *trello.Client) *trello.Card {
-	board, err := c.GetBoard("5bceb330ba13f689ee477774", trello.Defaults())
+	board, err := c.GetBoard(configuration["configTrelloBoardID"], trello.Defaults())
 	if err != nil {
 		log.Fatalf("Can not get config board data")
 	}
@@ -143,7 +143,7 @@ func createIPCardOnBoard() {
 	client := trello.NewClient(configuration["trelloAppKey"], configuration["trelloToken"])
 
 	//board, err := client.GetBoard(configuration["configTrelloBoardID"], trello.Defaults())
-	board, err := client.GetBoard("5bceb330ba13f689ee477774", trello.Defaults())
+	board, err := client.GetBoard(configuration["configTrelloBoardID"], trello.Defaults())
 	if err != nil {
 		log.Fatalf("The configuration board: %v can not be reached. Check if it exist and this user can access it\n", configuration["configTrelloBoardID"])
 		return
