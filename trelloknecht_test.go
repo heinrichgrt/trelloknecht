@@ -16,7 +16,7 @@ func TestMain(m *testing.M) {
 	readConfigFromFile(".token")
 	log.Infof("token: %v\n", configuration["trelloToken"])
 	client = trello.NewClient(configuration["trelloAppKey"], configuration["trelloToken"])
-	board, err := client.GetBoard("5bceb330ba13f689ee477774", trello.Defaults())
+	board, err := client.GetBoard(configuration["configTrelloBoardID"], trello.Defaults())
 	cards, err := board.GetCards(trello.Defaults())
 	if err != nil {
 		log.Fatalf("Can not get cards from config board")

@@ -37,7 +37,7 @@ var (
 		"newLabelAfterPrint":    "PRINTED",
 		"knechtID":              "",
 		"trelloUserName":        "kls_drucker",
-		"configTrelloBoardID":   "5bceb330ba13f689ee477774",
+		"configTrelloBoardID":   "someIdentifier",
 		"boardsToWatch":         "DevOps 2020 - Board",
 		"configCardName":        "PrintBert02 Card",
 		"usePrinterStatusBoard": "true",
