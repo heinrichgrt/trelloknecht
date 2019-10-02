@@ -70,7 +70,7 @@ func pdfBaseSetup() *gofpdf.Fpdf {
 
 func registerQR(pdf *gofpdf.Fpdf, card *trello.Card) {
 
-	key := barcode.RegisterQR(pdf, card.URL, qr.H, qr.Unicode)
+	key := barcode.RegisterQR(pdf, card.Url, qr.H, qr.Unicode)
 	qrSize, _ := strconv.ParseFloat(configuration["qRCodeSize"], 64)
 	barcode.BarcodeUnscalable(pdf, key, qRCodePos[0], qRCodePos[1], &qrSize, &qrSize, false)
 
@@ -131,7 +131,7 @@ func printLabels(pdfList []string) {
 		commandResult.OSCommand = "/usr/bin/lp"
 		commandResult.CommandArgs = []string{"-o", "fit-to-page", "-o", "media=" + configuration["printerMedia"], "-o",
 			configuration["printerOrientation"], "-n", configuration["numberOfCopiesPrnt"], "-d", configuration["printerName"], pdf}
-		commandResult.execCommand()
+		commandResult.execCommand2()
 		if commandResult.SuccessfullExecution == true {
 			printedCards = append(printedCards, pdf)
 		}

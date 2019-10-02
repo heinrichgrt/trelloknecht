@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"net"
 	"os"
@@ -146,6 +148,34 @@ func configCardDescription() string {
 	text = text + "Last Seen: " + time.Now().Format(time.RFC1123) + "\n "
 	return text
 }
+
+func (r *Resultset) execCommand2() {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel() // The cancel should be deferred so resources are cleaned up
+
+	// Create the command with our context
+	cmd := exec.CommandContext(ctx, r.OSCommand, r.CommandArgs...)
+
+	// This time we can simply use Output() to get the result.
+	out, err := cmd.Output()
+
+	// We want to check the context error to see if the timeout was executed.
+	// The error returned by cmd.Output() will be OS specific based on what
+	// happens when a process is killed.
+	if ctx.Err() == context.DeadlineExceeded {
+		fmt.Println("Command timed out")
+		return
+	}
+
+	// If there's no context error, we know the command completed (or errored).
+	fmt.Println("Output:", string(out))
+	if err != nil {
+		fmt.Println("Non-zero exit code:", err)
+	}
+
+}
+
 func (r *Resultset) execCommand() {
 	cmd := exec.Command(r.OSCommand, r.CommandArgs...)
 	var stdout, stderr bytes.Buffer
@@ -155,6 +185,7 @@ func (r *Resultset) execCommand() {
 	r.CmdStarttime = time.Now()
 
 	err := cmd.Run()
+
 	r.Stdout = string(stdout.Bytes())
 	r.Stderr = string(stderr.Bytes())
 	r.CMDStoptime = time.Now()

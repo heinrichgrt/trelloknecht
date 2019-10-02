@@ -85,6 +85,7 @@ type Resultset struct {
 	DurationSecounds     int       `json:"duration.seconds"`
 	SuccessfullExecution bool      `json:"succesful"`
 	ErrorStr             string    `json:"errorstr,omitempty"`
+	
 }
 
 func main() {
