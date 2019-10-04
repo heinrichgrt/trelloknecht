@@ -6,16 +6,18 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	
 	"net"
-	"os"
+
 	"os/exec"
 	"strings"
 	"time"
-
-	"github.com/denisbrodbeck/machineid"
-	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
+
+	"os"
+
+	"github.com/google/uuid"
+
 )
 
 func checkCommandLineArgs() {
@@ -97,25 +99,7 @@ func readConfigFromFile(filename string) {
 	}
 
 }
-func init() {
 
-	checkCommandLineArgs()
-	fetchConfiguration()
-	configuration["ip"] = fetchIP()
-	fetchBoardListFromConfig()
-	log.Infof("IP is %v", configuration["ip"])
-	dir, err := ioutil.TempDir(os.TempDir(), configuration["tmpDirPrefix"])
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Debugf(dir)
-	configuration["tmpDirName"] = dir
-	id, err := machineid.ProtectedID("trelloknect")
-	if err != nil {
-		log.Fatal(err)
-	}
-	configuration["knechtID"] = id
-}
 
 func cleanUp(dirName string) {
 	os.RemoveAll(dirName)
@@ -150,7 +134,7 @@ func configCardDescription() string {
 }
 
 func (r *Resultset) execCommand2() {
-
+	r.CmdStarttime = time.Now()
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel() // The cancel should be deferred so resources are cleaned up
 
@@ -164,15 +148,22 @@ func (r *Resultset) execCommand2() {
 	// The error returned by cmd.Output() will be OS specific based on what
 	// happens when a process is killed.
 	if ctx.Err() == context.DeadlineExceeded {
-		fmt.Println("Command timed out")
+		log.Fatalf("Command timed out")
 		return
 	}
 
 	// If there's no context error, we know the command completed (or errored).
-	fmt.Println("Output:", string(out))
+	r.SuccessfullExecution = true
+	r.CMDStoptime = time.Now()
+	r.DurationSecounds = int(r.CMDStoptime.Unix() - r.CmdStarttime.Unix())
+	r.Stdout = string(out)
 	if err != nil {
-		fmt.Println("Non-zero exit code:", err)
+		log.Errorf("Non-zero exit code:", err)
+		r.ErrorStr = err.Error()
+
 	}
+
+	return
 
 }
 

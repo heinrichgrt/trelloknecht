@@ -5,6 +5,10 @@ import (
 
 	// "github.com/adlio/trello"
 	"github.com/adlio/trello"
+	log "github.com/sirupsen/logrus"
+	"github.com/denisbrodbeck/machineid"
+	"io/ioutil"
+	"os"
 )
 
 var (
@@ -85,22 +89,43 @@ type Resultset struct {
 	DurationSecounds     int       `json:"duration.seconds"`
 	SuccessfullExecution bool      `json:"succesful"`
 	ErrorStr             string    `json:"errorstr,omitempty"`
-	
+}
+
+func init() {
+
+	checkCommandLineArgs()
+	fetchConfiguration()
+	configuration["ip"] = fetchIP()
+	fetchBoardListFromConfig()
+	log.Infof("IP is %v", configuration["ip"])
+	dir, err := ioutil.TempDir(os.TempDir(), configuration["tmpDirPrefix"])
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Debugf(dir)
+	configuration["tmpDirName"] = dir
+	id, err := machineid.ProtectedID("trelloknect")
+	if err != nil {
+		log.Fatal(err)
+	}
+	configuration["knechtID"] = id
 }
 
 func main() {
 	defer cleanUp(configuration["tmpDirName"])
 	//sleeptime, err := strconv.ad(configuration["waitIntervalSeconds"])
-
+	
 	createIPCardOnBoard()
 
 	for {
 		cardList := getLabels()
 		pdfFileList := writeLabels(cardList)
 		printLabels(pdfFileList)
+		/*
 		swapLabel(cardList)
 		reportPrints()
 		sweepOut()
+		*/
 		time.Sleep(60 * time.Second)
 	}
 
