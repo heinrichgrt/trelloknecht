@@ -21,20 +21,22 @@ func isPrintedLabelOnBoard(card *trello.Card) bool {
 	return res
 }
 
-func swapLabel(cards []*trello.Card) {
+func removeLabel(cards []*trello.Card) {
 	for _, card := range cards {
-		r := new(trello.Label)
+		// r := new(trello.Label)
 		//var l card.Labels
 		err := card.RemoveIDLabel(labelIDByName[configuration["toPrintedLabelName"]], r)
 		if err != nil {
 			log.Fatalf("removing  Label : %v with %v \n", configuration["toPrintedLabelName"], err)
 		}
-		if isPrintedLabelOnBoard(card) {
+		/* if isPrintedLabelOnBoard(card) {
 			err = card.AddIDLabel(newLabelAfterPrtIDs[card.IDBoard])
 			if err != nil {
 				log.Fatalf("adding Label: %v  with %v\n", configuration["newLabelAfterPrint"], err)
 			}
+			
 		}
+		*/
 	}
 }
 

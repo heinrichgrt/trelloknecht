@@ -120,12 +120,11 @@ func main() {
 	for {
 		cardList := getLabels()
 		pdfFileList := writeLabels(cardList)
+		removeLabel(cardList)
 		printLabels(pdfFileList)
-		/*
-		swapLabel(cardList)
 		reportPrints()
 		sweepOut()
-		*/
+		
 		time.Sleep(60 * time.Second)
 	}
 
