@@ -134,6 +134,8 @@ func printLabels(pdfList []string) {
 		commandResult.execCommand2()
 		if commandResult.SuccessfullExecution == true {
 			printedCards = append(printedCards, pdf)
+		}else{
+			log.Fatalf("printing failed, check the logs")
 		}
 
 	}
