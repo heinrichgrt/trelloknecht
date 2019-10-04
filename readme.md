@@ -12,7 +12,7 @@ Mark the Trello card you want to be printed with a label e.g. "PRINTME". This so
 ## Requirements
 - A Trello board
 - A User with a valid trello API-Token. This user must be able to read/write to the trello board.
-- The labels 
+- The label marking a card to be printed, must exist. 
 - Cups is installed and working. 
 - A label Printer, we are using Brother QL XXX, is configuered on cups. 
 - A go runtime environment 
@@ -20,16 +20,21 @@ Mark the Trello card you want to be printed with a label e.g. "PRINTME". This so
 
 
 ## Installation 
-
+```
 go get github.com/heinrichgrt/trelloknecht
-
+```
 
 ## Setup
 - In Trello add a printing user to your organisation or use an existing technical user.
-- Create Access token for this user if not already in place. Google will tell you how to achive this goal. 
+- Create Access token for this user if not already in place. Google will tell you how to achieve this goal. 
 - Invite this user to all the Trello boards you want to print from.
-- Choose card labels for the state: "To be printed" and "Printed" and create them on every board. E.g. "PRINTME" and "PRINTED". 
-- Create a file with the access token
+- Choose and create a card label for the state: "To be printed" on every board you want to print from. 
+- Create a file with the access token like:
+``` 
+cat .token
+trelloAppKey=   yourappkeywithoutquotes
+trelloToken=    yourtokenwithoutquotes
+````
 - Edit config.cfg to your needs. 
 - Start the software. 
 - Add the "PRINTME" to a card. 
@@ -44,18 +49,16 @@ go get github.com/heinrichgrt/trelloknecht
 cd $GOPATH/src/github.com/heinrichgrt/trelloknecht
 go get -d ./...
 go build 
-```
-Create a .token file with your access key and token:
-```
+
+# Create a .token file with your access key and token:
 cat .token
 trelloAppKey=asdfasdfasdfasfasddfasdfasdf
 trelloToken=hjklhjklhjklhjklhjklhjklhjklhjklhjklhjklhjklhjklhjklhjklhjkl
-```
-edit config.cfg to point to your board
 
-Start the software:
+# edit config.cfg to point to your board
+# Start the software:
 ./trelloknecht -configfile config.cfg -tokenfile .token 
-
+```
 That should be it. I will add some more detailed information later.
 
 have fun
