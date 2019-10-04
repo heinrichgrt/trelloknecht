@@ -3,11 +3,16 @@ A tool to print Trello cards on a label printer.
 
 There was a python thingie around that basically did the same. That software is not maintained anymore.  So I wrote something replacing it. Since there is no direct printing in golang implemented so far, I call cups cli `lp` to print to a cups enabled printer. This works on linux and MacOS. I do not know if it works on more bizarre or exotic operating systems as well. Feel free to port it to whatever you want. 
 
+## Basic Concept
+This software connects to a trello board, gets all cards with a certain label. Creates a printjob for each matching card. Finally the tagging label will be removed. 
+
 ## Introducion
 Mark the Trello card you want to be printed with a label e.g. "PRINTME". This software scans a list of boards, finds the cards with the label, prints them and replaces the label with a new label e.g. "PRINTED". 
 
 ## Requirements
-- A Trello Board
+- A Trello board
+- A User with a valid trello API-Token. This user must be able to read/write to the trello board.
+- The labels 
 - Cups is installed and working. 
 - A label Printer, we are using Brother QL XXX, is configuered on cups. 
 - A go runtime environment 
