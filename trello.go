@@ -23,7 +23,7 @@ func isPrintedLabelOnBoard(card *trello.Card) bool {
 
 func removeLabel(cards []*trello.Card) {
 	for _, card := range cards {
-		// r := new(trello.Label)
+		 r := new(trello.Label)
 		//var l card.Labels
 		err := card.RemoveIDLabel(labelIDByName[configuration["toPrintedLabelName"]], r)
 		if err != nil {
@@ -37,8 +37,11 @@ func removeLabel(cards []*trello.Card) {
 			
 		}
 		*/
+		
 	}
 }
+
+
 
 func writeLabels(cardList []*trello.Card) []string {
 	pdfFileList := make([]string, 0)
