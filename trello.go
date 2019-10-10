@@ -25,7 +25,7 @@ func removeLabel(cards []*trello.Card) {
 	for _, card := range cards {
 		 r := new(trello.Label)
 		//var l card.Labels
-		err := card.RemoveIDLabel(labelIDByName[configuration["toPrintedLabelName"]], r)
+		err := card.RemoveIDLabel(labelIDByName[card.IDBoard], r)
 		if err != nil {
 			log.Fatalf("removing  Label : %v with %v \n", configuration["toPrintedLabelName"], err)
 		}
@@ -217,7 +217,7 @@ func getMatchingCardsFromBoard(board *trello.Board) []*trello.Card {
 			log.Debugf("label %v on %v", label, card)
 			if label.Name == configuration["toPrintedLabelName"] {
 				cardList = append(cardList, card)
-				labelIDByName[label.Name] = label.ID
+				labelIDByName[card.IDBoard] = label.ID
 			}
 		}
 	}
