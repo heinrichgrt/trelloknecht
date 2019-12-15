@@ -15,7 +15,7 @@ Mark the Trello card you want to be printed with a label e.g. "PRINTME". This so
 - The label marking a card to be printed, must exist. 
 - Cups is installed and working. 
 - A label Printer, we are using Brother QL XXX, is configuered on cups. 
-- A go runtime environment 
+- A system where go code can be compiled. 
 - A "computer" running this software. 
 
 
