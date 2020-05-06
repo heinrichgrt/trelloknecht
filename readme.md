@@ -63,3 +63,6 @@ That should be it. I will add some more detailed information later.
 
 have fun
 
+# Issues
+- Textrendering is done by the pdf-lib. This will sometimes look funny, espacially if a headline is too long
+- The exec/eval of the cups print command needs some improvement
